@@ -7,100 +7,125 @@
     <style>
         body {
             margin: 0;
-            background: linear-gradient(to bottom, #000000, #1a1a1a);
+            background: linear-gradient(to bottom, #ff7eb3, #ff7582);
             font-family: 'Arial', sans-serif;
             overflow: hidden;
+        }
+        .character {
+            position: absolute;
+            bottom: 20%;
+            width: 100px;
+            height: 200px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
             color: white;
         }
-
-        .stars {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 5s infinite, fall 10s linear infinite;
+        .boy {
+            left: -150px;
+            animation: moveLeft 5s ease-in-out forwards;
         }
-
-        .heart-container {
-            position: relative;
-            top: 40%;
+        .girl {
+            right: -150px;
+            animation: moveRight 5s ease-in-out forwards;
+        }
+        .message {
+            position: absolute;
+            top: 30%;
             width: 100%;
             text-align: center;
-            font-size: 70px;
+            font-size: 40px;
             font-weight: bold;
-            color: red;
+            color: #ffffff;
+            opacity: 1;
         }
-
-        .message-left,
-        .message-right {
+        .heart {
+            font-size: 70px;
+            color: red;
+            animation: beat 1.2s infinite alternate;
+            cursor: pointer;
+        }
+        .children-container {
             position: absolute;
-            top: 50%;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+        .child {
             font-size: 20px;
             color: #000;
-        }
-
-        .message-left {
-            left: 38%;
-        }
-
-        .message-right {
-            right: 38%;
-        }
-
-        .heart {
-            animation: beat 1.2s infinite alternate;
+            animation: drop 3s ease-in-out forwards;
         }
 
         /* Animations */
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 0.2; }
+        @keyframes moveLeft {
+            to { left: 40%; }
         }
-
-        @keyframes fall {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(100px); }
+        @keyframes moveRight {
+            to { right: 40%; }
         }
-
         @keyframes beat {
             0% { transform: scale(1); }
             100% { transform: scale(1.2); }
         }
+        @keyframes drop {
+            from { transform: translateY(-100px); opacity: 1; }
+            to { transform: translateY(300px); opacity: 1; }
+        }
 
-        /* Generate stars dynamically */
-        .stars-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
+        /* Characters (Simple Shapes) */
+        .boy::before, .girl::before {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 50px;
+            background-color: #3498db;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+        .boy::after, .girl::after {
+            content: '';
+            display: block;
+            width: 30px;
+            height: 100px;
+            background-color: #2ecc71;
+            margin: 0 auto;
+        }
+        .girl::before {
+            background-color: #e74c3c;
+        }
+        .girl::after {
+            background-color: #9b59b6;
         }
     </style>
 </head>
 <body>
-    <!-- Stars Background -->
-    <div class="stars-container">
-        <!-- Stars dynamically generated in JavaScript -->
+    <!-- Characters -->
+    <div class="character boy">
+        Ali Kemal
+    </div>
+    <div class="character girl">
+        Rabia Sude
     </div>
 
-    <!-- Heart Message -->
-    <div class="heart-container">
-        <div class="message-left">Ali Kemal</div>
-        <div class="heart">❤️</div>
-        <div class="message-right">Rabia Sude</div>
+    <!-- Message -->
+    <div class="message">
+        Ali Kemal ❤️ Rabia Sude
+        <div class="heart" onclick="addChild()">❤️</div>
+    </div>
+
+    <!-- Children Container -->
+    <div class="children-container" id="childrenContainer">
     </div>
 
     <script>
-        // Generate stars
-        const starsContainer = document.querySelector('.stars-container');
-        for (let i = 0; i < 150; i++) {
-            const star = document.createElement('div');
-            star.classList.add('stars');
-            star.style.left = Math.random() * window.innerWidth + 'px';
-            star.style.top = Math.random() * window.innerHeight + 'px';
-            star.style.animationDelay = Math.random() * 5 + 's';
-            star.style.animationDuration = 5 + Math.random() * 5 + 's';
-            starsContainer.appendChild(star);
+        function addChild() {
+            const container = document.getElementById('childrenContainer');
+            const child = document.createElement('div');
+            child.classList.add('child');
+            child.innerText = '👶'; // Çocuk ikonu
+            container.appendChild(child);
         }
     </script>
 </body>
