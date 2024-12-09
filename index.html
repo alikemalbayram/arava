@@ -57,6 +57,19 @@
             color: #000;
             animation: drop 3s ease-in-out forwards;
         }
+        .bird {
+            position: absolute;
+            top: 0;
+            font-size: 40px;
+            left: -100px;
+            animation: fly 4s linear forwards;
+        }
+        .baby {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0;
+            animation: dropBaby 4s ease-in-out forwards;
+        }
 
         /* Animations */
         @keyframes moveLeft {
@@ -72,6 +85,14 @@
         @keyframes drop {
             from { transform: translateY(-100px); opacity: 1; }
             to { transform: translateY(300px); opacity: 1; }
+        }
+        @keyframes fly {
+            from { left: -100px; }
+            to { left: 110%; }
+        }
+        @keyframes dropBaby {
+            0% { opacity: 1; transform: translateY(-50px); }
+            100% { transform: translateY(500px); }
         }
 
         /* Characters (Simple Shapes) */
@@ -112,7 +133,7 @@
     <!-- Message -->
     <div class="message">
         Ali Kemal ❤️ Rabia Sude
-        <div class="heart" onclick="addChild()">❤️</div>
+        <div class="heart" onclick="addBaby()">❤️</div>
     </div>
 
     <!-- Children Container -->
@@ -120,12 +141,32 @@
     </div>
 
     <script>
-        function addChild() {
+        function addBaby() {
             const container = document.getElementById('childrenContainer');
-            const child = document.createElement('div');
-            child.classList.add('child');
-            child.innerText = '👶'; // Çocuk ikonu
-            container.appendChild(child);
+
+            // Create bird
+            const bird = document.createElement('div');
+            bird.classList.add('bird');
+            bird.innerText = '🕊️'; // Kuş ikonu
+            document.body.appendChild(bird);
+
+            // Create baby
+            const baby = document.createElement('div');
+            baby.classList.add('baby');
+            baby.innerText = '👶'; // Bebek ikonu
+            baby.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+            container.appendChild(baby);
+
+            // Drop baby after bird flies
+            setTimeout(() => {
+                baby.style.opacity = 1;
+                baby.style.left = bird.style.left;
+            }, 2000);
+
+            // Remove bird after animation
+            setTimeout(() => {
+                bird.remove();
+            }, 4000);
         }
     </script>
 </body>
