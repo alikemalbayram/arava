@@ -56,7 +56,7 @@
             position: absolute;
             top: 0;
             font-size: 40px;
-            left: -100px;
+            right: -100px;
             animation: fly 7s linear forwards;
         }
         .baby {
@@ -78,8 +78,8 @@
             100% { transform: scale(1.2); }
         }
         @keyframes fly {
-            from { left: -100px; }
-            to { left: 110%; }
+            from { right: -100px; }
+            to { right: 110%; }
         }
         @keyframes dropBaby {
             0% { opacity: 1; transform: translateY(-50px); }
@@ -114,12 +114,8 @@
 </head>
 <body>
     <!-- Characters -->
-    <div class="character boy">
-        Ali Kemal
-    </div>
-    <div class="character girl">
-        Rabia Sude
-    </div>
+    <div class="character boy"></div>
+    <div class="character girl"></div>
 
     <!-- Message -->
     <div class="message">
@@ -139,14 +135,14 @@
             const bird = document.createElement('div');
             bird.classList.add('bird');
             bird.innerText = '🕊️'; // Kuş ikonu
-            bird.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+            bird.style.right = Math.random() * (window.innerWidth - 50) + 'px';
             document.body.appendChild(bird);
 
             // Create baby
             const baby = document.createElement('div');
             baby.classList.add('baby');
             baby.innerText = '👶'; // Bebek ikonu
-            baby.style.left = bird.style.left;
+            baby.style.right = bird.style.right;
             baby.style.top = '40px';
             document.body.appendChild(baby);
 
